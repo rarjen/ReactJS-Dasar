@@ -45,7 +45,9 @@ function App() {
 
   const handleSubmit = () => {
     if (!form.name) {
-      setError("Field tidak boleh kosong");
+      setError("Nama tidak boleh kosong");
+    } else if (!form.tahunLahir) {
+      setError("Tahun Lahir tidak boleh kosong");
     } else {
       setForm({ ...form, umur: 2023 - form.tahunLahir });
     }
@@ -56,6 +58,11 @@ function App() {
   // function untuk handle onchange
   const handleChange = (e) => {
     setError(""); // Saat kita input ke field nama maka akan mengosongkan field name
+    if (e.target.name === "name") {
+      if (e.target.value.length < 3) {
+        setError("Minimal 3 karakter");
+      }
+    }
     setForm({ ...form, [e.target.name]: e.target.value });
     console.log(e.target.name);
     console.log(e.target.value);
