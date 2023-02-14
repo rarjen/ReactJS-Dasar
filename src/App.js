@@ -3,6 +3,7 @@ import { useState } from "react";
 // import { Hello } from "./Hello";
 // import { Title } from "./Title";
 import Button from "./components/Button";
+import Input from "./components/Input";
 // import Table from "./components/Table";
 
 function App() {
@@ -23,16 +24,34 @@ function App() {
   // State (Menangani agar render setiap ada perubahan value)
   // let number = 0;
   const [number, setnumber] = useState(0);
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   // const [tahunLahir, setTahunLahir] = useState("");
+  // const [umur, setUmur] = useState("");
+
+  // Manipulasi use state bila ada banyak form
+  const [form, setForm] = useState({
+    name: "",
+    umur: "",
+    tahunLahir: "",
+  });
 
   const click = () => {
     setnumber(number + 1);
     console.log(number);
   };
 
-  const handleSubmit = {};
-  console.log(handleSubmit);
+  const handleSubmit = () => {
+    console.log(form.name);
+    setForm({ ...form, umur: 2023 - form.tahunLahir });
+    console.log({ ...form });
+  };
+
+  // function untuk handle onchange
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(e.target.name);
+    console.log(e.target.value);
+  };
 
   return (
     <>
@@ -76,7 +95,7 @@ function App() {
       <Button onClick={click}>Click Me</Button>
       <hr />
       <h1>Aplikasi input data diri</h1>
-      Name:{" "}
+      {/* Name:{" "}
       <input
         type="text"
         value={name}
@@ -85,7 +104,37 @@ function App() {
       />
       <br />
       <br />
-      {/* Tahun Lahir: <input type="text" value={tahunLahir} /> */}
+      Tahun Lahir:{" "}
+      <input
+        type="number"
+        value={tahunLahir}
+        onChange={(e) => setTahunLahir(e.target.value)}
+      />
+      <br />
+      Umur saya adalah: {umur}
+      <br />
+      <Button onClick={handleSubmit}>Submit</Button> */}
+      Name:{" "}
+      <Input
+        type="text"
+        value={form.name}
+        name="name"
+        // e adalah event
+        // onChange={(e) => setForm({ ...form, name: e.target.value })}
+        onChange={handleChange}
+      />
+      <br />
+      <br />
+      Tahun Lahir:{" "}
+      <Input
+        type="number"
+        value={form.tahunLahir}
+        name="tahunLahir"
+        onChange={handleChange}
+      />
+      <br />
+      Umur saya adalah: {form.umur}
+      <br />
       <Button onClick={handleSubmit}>Submit</Button>
     </>
   );
