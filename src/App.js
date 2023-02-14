@@ -35,19 +35,27 @@ function App() {
     tahunLahir: "",
   });
 
+  // bisa di masukkan ke onchange/handle
+  const [error, setError] = useState("");
+
   const click = () => {
     setnumber(number + 1);
     console.log(number);
   };
 
   const handleSubmit = () => {
-    console.log(form.name);
-    setForm({ ...form, umur: 2023 - form.tahunLahir });
-    console.log({ ...form });
+    if (!form.name) {
+      setError("Field tidak boleh kosong");
+    } else {
+      setForm({ ...form, umur: 2023 - form.tahunLahir });
+    }
+    // console.log(form.name);
+    // console.log({ ...form });
   };
 
   // function untuk handle onchange
   const handleChange = (e) => {
+    setError(""); // Saat kita input ke field nama maka akan mengosongkan field name
     setForm({ ...form, [e.target.name]: e.target.value });
     console.log(e.target.name);
     console.log(e.target.value);
@@ -136,6 +144,8 @@ function App() {
       Umur saya adalah: {form.umur}
       <br />
       <Button onClick={handleSubmit}>Submit</Button>
+      <br />
+      <p style={{ color: "red" }}>{error}</p>
     </>
   );
 }
