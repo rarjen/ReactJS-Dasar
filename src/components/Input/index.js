@@ -11,7 +11,7 @@ export default function Input({ type, value, name, onChange }) {
 // };
 
 // Validasi dan handle error untuk props
-Input.PropTypes = {
+Input.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
